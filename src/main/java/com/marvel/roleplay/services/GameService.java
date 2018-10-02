@@ -19,10 +19,10 @@ public class GameService {
     private Boolean resumeGame;
 
     private Player player1;
-    // Computer
+    // Evil Player
     private Player player2;
 
-    private static Integer DEFAULT_ENERGY_LEVEL;
+    private static Integer DEFAULT_ENERGY_LEVEL = 100;
 
     public GameService(Boolean resumeGame){
         this.resumeGame = resumeGame;
@@ -30,7 +30,7 @@ public class GameService {
 
         } else {
             player1 = new Player(choosePlayer(), DEFAULT_ENERGY_LEVEL, Boolean.FALSE);
-            player2 = new Player(choosePlayer(), DEFAULT_ENERGY_LEVEL, Boolean.FALSE);
+            player2 = RolePlayAppHelper.getRandomEvilPlayer(DEFAULT_ENERGY_LEVEL);
         }
     }
 

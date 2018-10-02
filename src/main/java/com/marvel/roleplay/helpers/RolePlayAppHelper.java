@@ -5,10 +5,12 @@ import com.marvel.roleplay.domains.Player;
 import com.marvel.roleplay.enums.FightAction;
 import com.marvel.roleplay.enums.Power;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class RolePlayAppHelper {
@@ -30,10 +32,9 @@ public class RolePlayAppHelper {
                 .collect(Collectors.toList());
     }
 
-    public static Player getRandomEvilPlayer(){
-        int size = evilMarvelCharacters.size();
-        //Integer id = evilMarvelCharacters.keySet().stream().
-        return new Player(evilMarvelCharacters.get());
+    public static Player getRandomEvilPlayer(Integer energyLevel){
+        Integer randomId = new ArrayList<>(evilMarvelCharacters.keySet()).get(new Random().nextInt(evilMarvelCharacters.size()));
+        return new Player(evilMarvelCharacters.get(randomId), energyLevel, Boolean.FALSE);
     }
 
     public static Map<FightAction, Integer> createEnergyMap(int frontKick, int flyingKick, int punch, int superPunch, int flip){

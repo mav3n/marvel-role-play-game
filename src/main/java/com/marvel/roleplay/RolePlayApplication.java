@@ -6,6 +6,7 @@ import com.marvel.roleplay.enums.FightAction;
 import com.marvel.roleplay.enums.GameMenu;
 import com.marvel.roleplay.enums.Power;
 import com.marvel.roleplay.helpers.RolePlayAppHelper;
+import com.marvel.roleplay.services.GameService;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -46,11 +47,14 @@ public class RolePlayApplication {
 	}
 
 	private static boolean startGame(){
-
+		GameService gameService = new GameService(false);
+		gameService.startGame();
 		return false;
 	}
 
 	private static boolean resumeGame(){
+		GameService gameService = new GameService(true);
+		gameService.startGame();
 		return false;
 	}
 

@@ -1,41 +1,45 @@
 package com.marvel.roleplay.domains;
 
-public class Player {
+public class Player implements java.io.Serializable {
 
-    private MarvelCharacter character;
-    private Integer energyLevel;
-    private Boolean hasNextTurn;
+  private MarvelCharacter character;
+  private Integer         energyLevel;
+  private Boolean         hasNextTurn;
 
-    public Player(MarvelCharacter character, Integer energyLevel, Boolean hasNextTurn) {
-        this.character = character;
-        this.energyLevel = energyLevel;
-        this.hasNextTurn = hasNextTurn;
-    }
+  public Player(MarvelCharacter character, Integer energyLevel, Boolean hasNextTurn) {
+    this.character = character;
+    this.energyLevel = energyLevel;
+    this.hasNextTurn = hasNextTurn;
+  }
 
-    public Player() {
-    }
+  public Player() {
+  }
 
-    public MarvelCharacter getCharacter() {
-        return character;
-    }
+  public MarvelCharacter getCharacter() {
+    return character;
+  }
 
-    public void setCharacter(MarvelCharacter character) {
-        this.character = character;
-    }
+  public void setCharacter(MarvelCharacter character) {
+    this.character = character;
+  }
 
-    public Integer getEnergyLevel() {
-        return energyLevel;
-    }
+  public Integer getEnergyLevel() {
+    return energyLevel;
+  }
 
-    public void setEnergyLevel(Integer energyLevel) {
-        this.energyLevel = energyLevel;
-    }
+  public void setEnergyLevel(Integer energyLevel) {
+    this.energyLevel = energyLevel;
+  }
 
-    public Boolean getHasNextTurn() {
-        return hasNextTurn;
-    }
+  public Boolean getHasNextTurn() {
+    return hasNextTurn;
+  }
 
-    public void setHasNextTurn(Boolean hasNextTurn) {
-        this.hasNextTurn = hasNextTurn;
-    }
+  public void setHasNextTurn(Boolean hasNextTurn) {
+    this.hasNextTurn = hasNextTurn;
+  }
+
+  public void addExperience() {
+    character.setExperience(character.getExperience() + 1);
+  }
 }

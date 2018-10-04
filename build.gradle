@@ -1,13 +1,7 @@
 buildscript {
-//	ext {
-//		springBootVersion = '2.0.5.RELEASE'
-//	}
-	repositories {
-		mavenCentral()
-	}
-//	dependencies {
-//		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-//	}
+    repositories {
+        mavenCentral()
+    }
 }
 
 apply plugin: 'java'
@@ -20,13 +14,27 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 
 dependencies {
-	//compile (group: 'org.projectlombok', name: 'lombok', version: '1.18.2')
-	
+    //compile (group: 'org.projectlombok', name: 'lombok', version: '1.18.2')
+
 //	implementation('org.springframework.boot:spring-boot-starter')
 //	testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+
+
+
+jar {
+    doFirst {
+        manifest {
+            attributes(
+                    'Class-Path': configurations.compileOnly.files.collect { it.name }.join(' '),
+                    'Main-Class': 'com.marvel.roleplay.RolePlayApplication'
+            )
+        }
+    }
+    baseName = 'marvel-role-play-game'
 }

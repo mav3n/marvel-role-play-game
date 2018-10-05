@@ -6,11 +6,11 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-//apply plugin: 'org.springframework.boot'
-//apply plugin: 'io.spring.dependency-management'
+apply plugin: 'application'
+mainClassName = "com.marvel.roleplay.RolePlayApplication"
 
 group = 'com.marvel'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
@@ -19,10 +19,7 @@ repositories {
 
 
 dependencies {
-    //compile (group: 'org.projectlombok', name: 'lombok', version: '1.18.2')
 
-//	implementation('org.springframework.boot:spring-boot-starter')
-//	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
 

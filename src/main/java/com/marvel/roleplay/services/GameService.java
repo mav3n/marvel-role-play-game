@@ -188,12 +188,16 @@ public class GameService {
   }
 
   private File getFileFromResource(String fileName) {
+    File file = null;
     try {
       ClassLoader classLoader = getClass().getClassLoader();
-      return new File(classLoader.getResource(fileName).getFile());
+      file = new File(classLoader.getResource(fileName).getFile());
+      if (!file.exists()) {
+        file = new File(System.getProperty("user.dir") + "/" + fileName);
+      }
     } catch (Exception e) {
-      return new File("./"+fileName);
     }
+    return file;
   }
 
   private void loadNewGame() throws Exception {
@@ -218,12 +222,14 @@ public class GameService {
 
   private void printGameStats() {
     println(GAME_STATS_LINE);
-    println("|\t\t    \t|\t" + String.format("%20s", PLAYER1) + "\t|\t" + String.format("%24s", PLAYER2) + "\t|");
+    println("|            |   " + String.format("%20s", PLAYER1) + "     |    " + String.format("%24s", PLAYER2)
+        + "     |");
     println(BOUNDARY_LINE);
-    println("|\t\tName\t|\t" + String.format("%20s", player1.getCharacter().getName()) + "\t|\t" + String.format("%24s",
-        player2.getCharacter().getName()) + "\t|");
-    println("|\t\tEnergy\t|\t" + String.format("%20s", player1.getEnergyLevel()) + "\t|\t" + String.format("%24s",
-        player2.getEnergyLevel()) + "\t|");
+    println(
+        "|   Name     |   " + String.format("%20s", player1.getCharacter().getName()) + "     |    " + String.format(
+            "%24s", player2.getCharacter().getName()) + "     |");
+    println("|   Energy   |   " + String.format("%20s", player1.getEnergyLevel()) + "     |    " + String.format("%24s",
+        player2.getEnergyLevel()) + "     |");
     printWithBoundary("Next Turn : " + (player1.getHasNextTurn() ?
         player1.getCharacter().getName() :
         player2.getCharacter().getName()));
@@ -231,23 +237,24 @@ public class GameService {
 
   private static void printGameControls() {
     println(GAME_CONTROLS_LINE);
-    println("|\t\t" + String.format("%22s", "Exit Game") + "\t\t\t|\t\t" + String.format("%22s", "Enter X") + "\t\t|");
-    println("|\t\t" + String.format("%22s", "Save & Exit Game") + "\t\t\t|\t\t" + String.format("%22s", "Enter A")
-        + "\t\t|");
+    println("|         " + String.format("%22s", "Exit Game") + "       |   " + String.format("%22s", "Enter X")
+        + "           |");
+    println("|         " + String.format("%22s", "Save & Exit Game") + "       |   " + String.format("%22s", "Enter A")
+        + "           |");
     println(PLAYER_MOVES);
-    println("|\t\t" + String.format("%22s", FightAction.PUNCH.name()) + "\t\t\t|\t\t" + String.format("%22s", "Enter P")
-        + "\t\t|");
-    println("|\t\t" + String.format("%22s", FightAction.SUPER_PUNCH.name()) + "\t\t\t|\t\t" + String.format("%22s",
-        "Enter S") + "\t\t|");
-    println("|\t\t" + String.format("%22s", FightAction.FRONT_KICK.name()) + "\t\t\t|\t\t" + String.format("%22s",
-        "Enter K") + "\t\t|");
-    println("|\t\t" + String.format("%22s", FightAction.FLYING_KICK.name()) + "\t\t\t|\t\t" + String.format("%22s",
-        "Enter F") + "\t\t|");
-    println("|\t\t" + String.format("%22s", FightAction.FLIP.name()) + "\t\t\t|\t\t" + String.format("%22s", "Enter L")
-        + "\t\t|");
+    println("|         " + String.format("%22s", FightAction.PUNCH.name()) + "       |   " + String.format("%22s",
+        "Enter P") + "           |");
+    println("|         " + String.format("%22s", FightAction.SUPER_PUNCH.name()) + "       |   " + String.format("%22s",
+        "Enter S") + "           |");
+    println("|         " + String.format("%22s", FightAction.FRONT_KICK.name()) + "       |   " + String.format("%22s",
+        "Enter K") + "           |");
+    println("|         " + String.format("%22s", FightAction.FLYING_KICK.name()) + "       |   " + String.format("%22s",
+        "Enter F") + "           |");
     println(
-        "|\t\t" + String.format("%22s", FightAction.BLOCK.name() + " (Default Move)") + "\t\t\t|\t\t" + String.format(
-            "%22s", "Enter B or Any other") + "\t\t|");
+        "|         " + String.format("%22s", FightAction.FLIP.name()) + "       |   " + String.format("%22s", "Enter L")
+            + "           |");
+    println("|         " + String.format("%22s", FightAction.BLOCK.name() + " (Default Move)") + "       |   "
+        + String.format("%22s", "Enter B or Any other") + "           |");
     println(BOUNDARY_LINE);
   }
 

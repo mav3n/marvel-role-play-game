@@ -28,9 +28,9 @@ public class PrintUtils {
   public static void printCharacters(List<MarvelCharacter> characterList) throws Exception {
     println(LONG_BOUNDARY_LINE);
     println(
-        "|\t" + String.format("%9s", "Player Id") + "\t|\t" + String.format("%18s", "Name") + "\t|\t" + String.format(
-            "%11s", "Super Power") + "\t|\t" + String.format("%10s", "Experience") + "\t|\t" + String.format("%92s",
-            "Opponents Energy Consumption based on Move Type") + "\t|\t");
+        "|   " + String.format("%9s", "Player Id") + "   |  " + String.format("%18s", "Name") + "   |  " + String.format(
+            "%11s", "Super Power") + "   |  " + String.format("%10s", "Experience") + "   |  " + String.format("%92s",
+            "Opponents Energy Consumption based on Move Type") + "   |  ");
     println(LONG_BOUNDARY_LINE);
     for (MarvelCharacter character : characterList) {
       String energyMap = "[ ";
@@ -38,9 +38,9 @@ public class PrintUtils {
         energyMap += entry.getKey().name() + " = " + entry.getValue() + ", ";
       }
       energyMap = energyMap.substring(0, energyMap.length() - 2) + " ]";
-      println("|\t" + String.format("%9s", character.getId()) + "\t|\t" + String.format("%18s", character.getName())
-          + "\t|\t" + String.format("%11s", character.getPower()) + "\t|\t" + String.format("%10s",
-          character.getExperience() + " Fights") + "\t|\t" + String.format("%92s", energyMap) + "\t|\t");
+      println("|   " + String.format("%9s", character.getId()) + "   |  " + String.format("%18s", character.getName())
+          + "   |  " + String.format("%11s", character.getPower()) + "   |  " + String.format("%10s",
+          character.getExperience() + " Fights") + "   |  " + String.format("%92s", energyMap) + "   |  ");
       println(LONG_BOUNDARY_LINE);
       Thread.sleep(500);
     }

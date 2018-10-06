@@ -1,6 +1,9 @@
 package com.marvel.roleplay.utils;
 
 import static com.marvel.roleplay.constants.RolePlayApiConstants.BOUNDARY_LINE;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.CHARACTERS_LEFT_BORDER;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.CHARACTERS_MIDDLE_BORDER;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.CHARACTERS_RIGHT_BORDER;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.LONG_BOUNDARY_LINE;
 
 import java.util.List;
@@ -28,9 +31,10 @@ public class PrintUtils {
   public static void printCharacters(List<MarvelCharacter> characterList) throws Exception {
     println(LONG_BOUNDARY_LINE);
     println(
-        "|   " + String.format("%9s", "Player Id") + "   |  " + String.format("%18s", "Name") + "   |  " + String.format(
-            "%11s", "Super Power") + "   |  " + String.format("%10s", "Experience") + "   |  " + String.format("%92s",
-            "Opponents Energy Consumption based on Move Type") + "   |  ");
+        CHARACTERS_LEFT_BORDER + String.format("%9s", "Player Id") + CHARACTERS_MIDDLE_BORDER + String.format("%18s",
+            "Name") + CHARACTERS_MIDDLE_BORDER + String.format("%11s", "Super Power") + CHARACTERS_MIDDLE_BORDER
+            + String.format("%10s", "Experience") + CHARACTERS_MIDDLE_BORDER + String.format("%92s",
+            "Opponents Energy Consumption based on Move Type") + CHARACTERS_RIGHT_BORDER);
     println(LONG_BOUNDARY_LINE);
     for (MarvelCharacter character : characterList) {
       String energyMap = "[ ";
@@ -38,9 +42,11 @@ public class PrintUtils {
         energyMap += entry.getKey().name() + " = " + entry.getValue() + ", ";
       }
       energyMap = energyMap.substring(0, energyMap.length() - 2) + " ]";
-      println("|   " + String.format("%9s", character.getId()) + "   |  " + String.format("%18s", character.getName())
-          + "   |  " + String.format("%11s", character.getPower()) + "   |  " + String.format("%10s",
-          character.getExperience() + " Fights") + "   |  " + String.format("%92s", energyMap) + "   |  ");
+      println(
+          CHARACTERS_LEFT_BORDER + String.format("%9s", character.getId()) + CHARACTERS_MIDDLE_BORDER + String.format(
+              "%18s", character.getName()) + CHARACTERS_MIDDLE_BORDER + String.format("%11s", character.getPower())
+              + CHARACTERS_MIDDLE_BORDER + String.format("%10s", character.getExperience() + " Fights")
+              + CHARACTERS_MIDDLE_BORDER + String.format("%92s", energyMap) + CHARACTERS_RIGHT_BORDER);
       println(LONG_BOUNDARY_LINE);
       Thread.sleep(500);
     }

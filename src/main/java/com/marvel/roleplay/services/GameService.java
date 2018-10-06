@@ -6,13 +6,21 @@ import static com.marvel.roleplay.constants.RolePlayApiConstants.DEFAULT_ENERGY_
 import static com.marvel.roleplay.constants.RolePlayApiConstants.DEFAULT_PLAYER_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_BEGIN_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_CONTROLS_LINE;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_CONTROL_LEFT_BORDER;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_CONTROL_MIDDLE_BORDER;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_CONTROL_RIGHT_BORDER;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_RESUME_FAILURE_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_RESUME_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_RESUME_SUCCESS_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_SAVE_FAILURE_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_SAVE_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_SAVE_SUCCESS_MSG;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_STATS_ENERGY_BORDER;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_STATS_LEFT_EMPTY;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_STATS_LINE;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_STATS_MIDDLE_BORDER;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_STATS_NAME_BORDER;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.GAME_STATS_RIGHT_BORDER;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.LONG_BOUNDARY_LINE;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.LOST_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.PLAYER1;
@@ -22,6 +30,7 @@ import static com.marvel.roleplay.constants.RolePlayApiConstants.PLAYER2_FILE_NA
 import static com.marvel.roleplay.constants.RolePlayApiConstants.PLAYER_INPUT_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.PLAYER_MOVES;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.REDIRECT_TO_MAIN_MENU;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.USER_DIR_PATH_KEY;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.WIN_MSG;
 import static com.marvel.roleplay.helpers.RolePlayAppHelper.getMarvelCharactersList;
 import static com.marvel.roleplay.utils.PrintUtils.printCharacters;
@@ -193,7 +202,7 @@ public class GameService {
       ClassLoader classLoader = getClass().getClassLoader();
       file = new File(classLoader.getResource(fileName).getFile());
       if (!file.exists()) {
-        file = new File(System.getProperty("user.dir") + "/" + fileName);
+        file = new File(System.getProperty(USER_DIR_PATH_KEY) + "/" + fileName);
       }
     } catch (Exception e) {
     }
@@ -222,14 +231,13 @@ public class GameService {
 
   private void printGameStats() {
     println(GAME_STATS_LINE);
-    println("|            |   " + String.format("%20s", PLAYER1) + "     |    " + String.format("%24s", PLAYER2)
-        + "     |");
+    println(GAME_STATS_LEFT_EMPTY + String.format("%20s", PLAYER1) + GAME_STATS_MIDDLE_BORDER + String.format("%24s",
+        PLAYER2) + GAME_STATS_RIGHT_BORDER);
     println(BOUNDARY_LINE);
-    println(
-        "|   Name     |   " + String.format("%20s", player1.getCharacter().getName()) + "     |    " + String.format(
-            "%24s", player2.getCharacter().getName()) + "     |");
-    println("|   Energy   |   " + String.format("%20s", player1.getEnergyLevel()) + "     |    " + String.format("%24s",
-        player2.getEnergyLevel()) + "     |");
+    println(GAME_STATS_NAME_BORDER + String.format("%20s", player1.getCharacter().getName()) + GAME_STATS_MIDDLE_BORDER
+        + String.format("%24s", player2.getCharacter().getName()) + GAME_STATS_RIGHT_BORDER);
+    println(GAME_STATS_ENERGY_BORDER + String.format("%20s", player1.getEnergyLevel()) + GAME_STATS_MIDDLE_BORDER
+        + String.format("%24s", player2.getEnergyLevel()) + GAME_STATS_RIGHT_BORDER);
     printWithBoundary("Next Turn : " + (player1.getHasNextTurn() ?
         player1.getCharacter().getName() :
         player2.getCharacter().getName()));
@@ -237,24 +245,26 @@ public class GameService {
 
   private static void printGameControls() {
     println(GAME_CONTROLS_LINE);
-    println("|         " + String.format("%22s", "Exit Game") + "       |   " + String.format("%22s", "Enter X")
-        + "           |");
-    println("|         " + String.format("%22s", "Save & Exit Game") + "       |   " + String.format("%22s", "Enter A")
-        + "           |");
+    println(GAME_CONTROL_LEFT_BORDER + String.format("%22s", "Exit Game") + GAME_CONTROL_MIDDLE_BORDER + String.format(
+        "%22s", "Enter X") + GAME_CONTROL_RIGHT_BORDER);
+    println(GAME_CONTROL_LEFT_BORDER + String.format("%22s", "Save & Exit Game") + GAME_CONTROL_MIDDLE_BORDER
+        + String.format("%22s", "Enter A") + GAME_CONTROL_RIGHT_BORDER);
     println(PLAYER_MOVES);
-    println("|         " + String.format("%22s", FightAction.PUNCH.name()) + "       |   " + String.format("%22s",
-        "Enter P") + "           |");
-    println("|         " + String.format("%22s", FightAction.SUPER_PUNCH.name()) + "       |   " + String.format("%22s",
-        "Enter S") + "           |");
-    println("|         " + String.format("%22s", FightAction.FRONT_KICK.name()) + "       |   " + String.format("%22s",
-        "Enter K") + "           |");
-    println("|         " + String.format("%22s", FightAction.FLYING_KICK.name()) + "       |   " + String.format("%22s",
-        "Enter F") + "           |");
     println(
-        "|         " + String.format("%22s", FightAction.FLIP.name()) + "       |   " + String.format("%22s", "Enter L")
-            + "           |");
-    println("|         " + String.format("%22s", FightAction.BLOCK.name() + " (Default Move)") + "       |   "
-        + String.format("%22s", "Enter B or Any other") + "           |");
+        GAME_CONTROL_LEFT_BORDER + String.format("%22s", FightAction.PUNCH.name()) + GAME_CONTROL_MIDDLE_BORDER + String
+            .format("%22s", "Enter P") + GAME_CONTROL_RIGHT_BORDER);
+    println(
+        GAME_CONTROL_LEFT_BORDER + String.format("%22s", FightAction.SUPER_PUNCH.name()) + GAME_CONTROL_MIDDLE_BORDER
+            + String.format("%22s", "Enter S") + GAME_CONTROL_RIGHT_BORDER);
+    println(GAME_CONTROL_LEFT_BORDER + String.format("%22s", FightAction.FRONT_KICK.name()) + GAME_CONTROL_MIDDLE_BORDER
+        + String.format("%22s", "Enter K") + GAME_CONTROL_RIGHT_BORDER);
+    println(
+        GAME_CONTROL_LEFT_BORDER + String.format("%22s", FightAction.FLYING_KICK.name()) + GAME_CONTROL_MIDDLE_BORDER
+            + String.format("%22s", "Enter F") + GAME_CONTROL_RIGHT_BORDER);
+    println(GAME_CONTROL_LEFT_BORDER + String.format("%22s", FightAction.FLIP.name()) + GAME_CONTROL_MIDDLE_BORDER
+        + String.format("%22s", "Enter L") + GAME_CONTROL_RIGHT_BORDER);
+    println(GAME_CONTROL_LEFT_BORDER + String.format("%22s", FightAction.BLOCK.name() + " (Default Move)")
+        + GAME_CONTROL_MIDDLE_BORDER + String.format("%22s", "Enter B or Any other") + GAME_CONTROL_RIGHT_BORDER);
     println(BOUNDARY_LINE);
   }
 

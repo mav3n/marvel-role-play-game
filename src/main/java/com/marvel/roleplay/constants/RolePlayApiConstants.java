@@ -44,6 +44,19 @@ public interface RolePlayApiConstants {
   String SUPER_VILLAINS               = "Introducing Marvel Super Villains . . . ";
   String EXPLORE_END_MSG              =
       "Now, its time to become a Super Hero and defeat the Villains to Save the world!";
+  String USER_DIR_PATH_KEY            = "user.dir";
+
+  String CHARACTERS_LEFT_BORDER     = "|   ";
+  String CHARACTERS_MIDDLE_BORDER   = "   |  ";
+  String CHARACTERS_RIGHT_BORDER    = "   |";
+  String GAME_CONTROL_LEFT_BORDER   = "|         ";
+  String GAME_CONTROL_MIDDLE_BORDER = "       |   ";
+  String GAME_CONTROL_RIGHT_BORDER  = "           |";
+  String GAME_STATS_LEFT_EMPTY      = "|            |   ";
+  String GAME_STATS_NAME_BORDER     = "|   Name     |   ";
+  String GAME_STATS_ENERGY_BORDER   = "|   Energy   |   ";
+  String GAME_STATS_MIDDLE_BORDER   = "     |    ";
+  String GAME_STATS_RIGHT_BORDER    = "     |";
 
   Integer DEFAULT_ENERGY_LEVEL = 100;
 }

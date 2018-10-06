@@ -12,5 +12,5 @@ To build this game, run following command from root:
 To run/start this game, use following command from root:
 
 ```sh
-java -jar ./build/libs/marvel-role-play-game-1.0.0-SNAPSHOT.jar
+java -jar marvel-role-play-game-1.0.0-SNAPSHOT.jar
 ```

@@ -13,7 +13,9 @@ public interface RolePlayApiConstants {
   String REDIRECT_TO_MAIN_MENU        = "Redirecting to the Main Menu . . .";
   String CREATE_CHARACTER_SUCCESS_MSG = "Hurray! Successfully added the new Character.\n" + REDIRECT_TO_MAIN_MENU;
   String CREATE_CHARACTER_FAILURE_MSG = "Oops! Couldn't add the new Character.\n" + REDIRECT_TO_MAIN_MENU;
-  String INVALID_ENTRY_MSG            = "Invalid Entry! Try Again!";
+  String INVALID_ENTRY_MSG            = "Invalid Entry!";
+  String TRY_AGAIN_MSG                = INVALID_ENTRY_MSG + " Try Again!";
+  String INVALID_POWER_MSG            = "Invalid Power Selected.";
   String NAME_INPUT_MSG               = "Enter New Character's Name : ";
   String ENERGY_INPUT_MSG             =
       "Enter the opponents energy drained (number between 1-20) by user Fight Action - ";
@@ -53,8 +55,8 @@ public interface RolePlayApiConstants {
   String GAME_CONTROL_MIDDLE_BORDER = "       |   ";
   String GAME_CONTROL_RIGHT_BORDER  = "           |";
   String GAME_STATS_LEFT_EMPTY      = "|            |   ";
-  String GAME_STATS_NAME_BORDER     = "|   Name     |   ";
-  String GAME_STATS_ENERGY_BORDER   = "|   Energy   |   ";
+  String GAME_STATS_NAME_BORDER     = "|   NAME     |   ";
+  String GAME_STATS_ENERGY_BORDER   = "|   ENERGY   |   ";
   String GAME_STATS_MIDDLE_BORDER   = "     |    ";
   String GAME_STATS_RIGHT_BORDER    = "     |";
 

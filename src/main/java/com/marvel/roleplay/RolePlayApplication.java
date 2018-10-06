@@ -1,15 +1,9 @@
 package com.marvel.roleplay;
 
-import static com.marvel.roleplay.constants.RolePlayApiConstants.CREATE_CHARACTER_FAILURE_MSG;
-import static com.marvel.roleplay.constants.RolePlayApiConstants.CREATE_CHARACTER_SUCCESS_MSG;
-import static com.marvel.roleplay.constants.RolePlayApiConstants.ENERGY_INPUT_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.EXIT_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.EXPLORE_END_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.EXPLORE_MARVEL_STUDIOS;
-import static com.marvel.roleplay.constants.RolePlayApiConstants.INVALID_ENTRY_MSG;
-import static com.marvel.roleplay.constants.RolePlayApiConstants.NAME_INPUT_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.OPTION_SELECTION_MSG;
-import static com.marvel.roleplay.constants.RolePlayApiConstants.POWER_INPUT_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.SUPER_HEROES;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.SUPER_VILLAINS;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.USER_ACTION_MSG;
@@ -24,12 +18,12 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import com.marvel.roleplay.domains.MarvelCharacter;
-import com.marvel.roleplay.enums.FightAction;
 import com.marvel.roleplay.enums.GameMenu;
-import com.marvel.roleplay.enums.Power;
 import com.marvel.roleplay.helpers.RolePlayAppHelper;
+import com.marvel.roleplay.services.CharacterService;
 import com.marvel.roleplay.services.GameService;
+import com.marvel.roleplay.services.impls.CharacterServiceImpl;
+import com.marvel.roleplay.services.impls.GameServiceImpl;
 
 public class RolePlayApplication {
 
@@ -37,24 +31,23 @@ public class RolePlayApplication {
 
   public static void main(String[] args) throws Exception {
     printWithBoundary(WELCOME_MSG);
-    boolean successFlag;
     do {
       int selectedOption = getValidUserAction();
       switch (selectedOption) {
         case 1: {
-          successFlag = startGame();
+          startGame();
           break;
         }
         case 2: {
-          successFlag = resumeGame();
+          resumeGame();
           break;
         }
         case 3: {
-          successFlag = createCharacter();
+          createCharacter();
           break;
         }
         case 4: {
-          successFlag = exploreMarvel();
+          exploreMarvel();
           break;
         }
         case 5: {
@@ -62,44 +55,25 @@ public class RolePlayApplication {
           System.exit(0);
         }
         default: {
-          successFlag = false;
+          continue;
         }
       }
-    } while (!successFlag);
+    } while (true);
   }
 
-  private static boolean startGame() throws Exception {
-    GameService gameService = new GameService(false, false);
-    gameService.startGame();
-    return false;
+  private static void startGame() throws Exception {
+    GameService gameService = new GameServiceImpl(false);
+    gameService.startNewGame();
   }
 
-  private static boolean resumeGame() throws Exception {
-    GameService gameService = new GameService(true, false);
-    gameService.startGame();
-    return false;
+  private static void resumeGame() throws Exception {
+    GameService gameService = new GameServiceImpl(false);
+    gameService.resumeGame();
   }
 
-  private static boolean createCharacter() {
-    boolean success = false;
-    try {
-      MarvelCharacter newCharacter = new MarvelCharacter();
-      print(NAME_INPUT_MSG);
-      newCharacter.setName(scanner.nextLine());
-      newCharacter.setPower(getValidPower());
-      newCharacter.setActionEnergyMap(
-          RolePlayAppHelper.createEnergyMap(getValidEnergyDrainedFromFightAction(FightAction.FRONT_KICK),
-              getValidEnergyDrainedFromFightAction(FightAction.FLYING_KICK),
-              getValidEnergyDrainedFromFightAction(FightAction.PUNCH),
-              getValidEnergyDrainedFromFightAction(FightAction.SUPER_PUNCH),
-              getValidEnergyDrainedFromFightAction(FightAction.FLIP)));
-      newCharacter.setExperience(0);
-      RolePlayAppHelper.addCharacter(newCharacter);
-      printWithBoundary(CREATE_CHARACTER_SUCCESS_MSG);
-    } catch (Exception ex) {
-      printWithBoundary(CREATE_CHARACTER_FAILURE_MSG);
-    }
-    return success;
+  private static void createCharacter() {
+    CharacterService characterService = new CharacterServiceImpl();
+    characterService.createCharacter();
   }
 
   private static boolean exploreMarvel() throws Exception {
@@ -114,47 +88,6 @@ public class RolePlayApplication {
     printWithBoundary(EXPLORE_END_MSG);
     Thread.sleep(2000);
     return false;
-  }
-
-  private static int getValidEnergyDrainedFromFightAction(FightAction fightAction) {
-    int energyDrained = 0;
-    while (true) {
-      try {
-        println(ENERGY_INPUT_MSG + fightAction.name() + " : ");
-        energyDrained = Integer.parseInt(scanner.nextLine());
-        if (energyDrained >= 1 && energyDrained <= 20)
-          break;
-        else
-          throw new Exception("Invalid Entry.");
-      } catch (Exception ex) {
-        println(INVALID_ENTRY_MSG);
-      }
-    }
-    return energyDrained;
-
-  }
-
-  private static Power getValidPower() {
-    String optionSelectionMessage = POWER_INPUT_MSG + " ( ";
-    while (true) {
-      try {
-        print(optionSelectionMessage);
-        for (Power p : Power.values()) {
-          print(p.name() + ", ");
-        }
-        println("\b\b)");
-        String selectedPower = scanner.nextLine();
-        if (Arrays.stream(Power.values())
-            .map(power -> power.name())
-            .collect(Collectors.toList())
-            .contains(selectedPower)) {
-          return Power.valueOf(selectedPower);
-        }
-        throw new Exception("Invalid Power Selected.");
-      } catch (Exception ex) {
-        System.out.println(INVALID_ENTRY_MSG);
-      }
-    }
   }
 
   private static int getValidUserAction() {

@@ -1,6 +1,7 @@
 package com.marvel.roleplay;
 
 import static com.marvel.roleplay.constants.RolePlayApiConstants.EXIT_MSG;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.INVALID_INPUT_LIMIT_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.INVALID_OPTION_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.NEWLINE;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.OPTION_SELECTION_MSG;
@@ -66,11 +67,12 @@ public class RolePlayApplication {
 
   private static int getValidUserAction() {
     println(USER_ACTION_MSG);
+    int count = 0;
     for (GameMenu menuOption : GameMenu.values()) {
       println(menuOption.getActionCode() + SEPARATOR + menuOption.getActionText());
     }
     String optionSelectionMessage = NEWLINE + OPTION_SELECTION_MSG;
-    int selectedOption = 0;
+    int selectedOption = 5;
     while (true) {
       try {
         print(optionSelectionMessage);
@@ -84,7 +86,14 @@ public class RolePlayApplication {
         throw new Exception(INVALID_OPTION_MSG);
 
       } catch (Exception e) {
-        optionSelectionMessage = NEWLINE + VALID_OPTION_SELECTION_MSG;
+        count++;
+        if (count <= 3) {
+          optionSelectionMessage = NEWLINE + VALID_OPTION_SELECTION_MSG;
+        } else {
+          printWithBoundary(INVALID_INPUT_LIMIT_MSG);
+          return selectedOption;
+        }
+
       }
     }
   }

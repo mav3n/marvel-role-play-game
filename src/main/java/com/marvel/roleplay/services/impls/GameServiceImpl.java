@@ -31,6 +31,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Scanner;
@@ -67,6 +69,11 @@ public class GameServiceImpl implements GameService {
   public void resumeGame() throws Exception {
     loadSavedGame();
     startGame();
+  }
+
+  @Override
+  public List<Player> getPlayers() {
+    return Arrays.asList(player1, player2);
   }
 
   private void startGame() throws Exception {
@@ -207,7 +214,7 @@ public class GameServiceImpl implements GameService {
   }
 
   private static char getMove(Player player, boolean isComputerMove) {
-    System.out.println(player.getCharacter().getName() + " enter your move : ");
+    System.out.println(player.getCharacter().getName() + " enter your move :");
     if (isComputerMove) {
       char[] moves = new char[] {'P', 'S', 'K', 'F', 'L', 'B'};
       return moves[new Random().nextInt(moves.length)];

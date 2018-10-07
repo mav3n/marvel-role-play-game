@@ -90,6 +90,7 @@ public class RolePlayApplication {
         if (count <= 3) {
           optionSelectionMessage = NEWLINE + VALID_OPTION_SELECTION_MSG;
         } else {
+          println("");
           printWithBoundary(INVALID_INPUT_LIMIT_MSG);
           return selectedOption;
         }

@@ -57,17 +57,19 @@ public class GameServiceImpl implements GameService {
     this.isMultiPlayer = isMultiPlayer;
   }
 
+  @Override
   public void startNewGame() throws Exception {
     loadNewGame();
     startGame();
   }
 
+  @Override
   public void resumeGame() throws Exception {
     loadSavedGame();
     startGame();
   }
 
-  public void startGame() throws Exception {
+  private void startGame() throws Exception {
     printWithBoundary(GAME_BEGIN_MSG);
     Thread.sleep(2000);
     printGameControls();

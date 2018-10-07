@@ -1,16 +1,14 @@
 package com.marvel.roleplay;
 
 import static com.marvel.roleplay.constants.RolePlayApiConstants.EXIT_MSG;
-import static com.marvel.roleplay.constants.RolePlayApiConstants.EXPLORE_END_MSG;
-import static com.marvel.roleplay.constants.RolePlayApiConstants.EXPLORE_MARVEL_STUDIOS;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.INVALID_OPTION_MSG;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.NEWLINE;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.OPTION_SELECTION_MSG;
-import static com.marvel.roleplay.constants.RolePlayApiConstants.SUPER_HEROES;
-import static com.marvel.roleplay.constants.RolePlayApiConstants.SUPER_VILLAINS;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.SEPARATOR;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.USER_ACTION_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.VALID_OPTION_SELECTION_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.WELCOME_MSG;
 import static com.marvel.roleplay.utils.PrintUtils.print;
-import static com.marvel.roleplay.utils.PrintUtils.printCharacters;
 import static com.marvel.roleplay.utils.PrintUtils.printWithBoundary;
 import static com.marvel.roleplay.utils.PrintUtils.println;
 
@@ -19,15 +17,20 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.marvel.roleplay.enums.GameMenu;
-import com.marvel.roleplay.helpers.RolePlayAppHelper;
 import com.marvel.roleplay.services.CharacterService;
+import com.marvel.roleplay.services.ExploreService;
 import com.marvel.roleplay.services.GameService;
 import com.marvel.roleplay.services.impls.CharacterServiceImpl;
+import com.marvel.roleplay.services.impls.ExploreServiceImpl;
 import com.marvel.roleplay.services.impls.GameServiceImpl;
 
 public class RolePlayApplication {
 
   private static Scanner scanner = new Scanner(System.in);
+
+  private static GameService      gameService      = new GameServiceImpl(false);
+  private static CharacterService characterService = new CharacterServiceImpl();
+  private static ExploreService   exploreService   = new ExploreServiceImpl();
 
   public static void main(String[] args) throws Exception {
     printWithBoundary(WELCOME_MSG);
@@ -35,19 +38,19 @@ public class RolePlayApplication {
       int selectedOption = getValidUserAction();
       switch (selectedOption) {
         case 1: {
-          startGame();
+          gameService.startNewGame();
           break;
         }
         case 2: {
-          resumeGame();
+          gameService.resumeGame();
           break;
         }
         case 3: {
-          createCharacter();
+          characterService.createCharacter();
           break;
         }
         case 4: {
-          exploreMarvel();
+          exploreService.exploreMarvel();
           break;
         }
         case 5: {
@@ -61,41 +64,12 @@ public class RolePlayApplication {
     } while (true);
   }
 
-  private static void startGame() throws Exception {
-    GameService gameService = new GameServiceImpl(false);
-    gameService.startNewGame();
-  }
-
-  private static void resumeGame() throws Exception {
-    GameService gameService = new GameServiceImpl(false);
-    gameService.resumeGame();
-  }
-
-  private static void createCharacter() {
-    CharacterService characterService = new CharacterServiceImpl();
-    characterService.createCharacter();
-  }
-
-  private static boolean exploreMarvel() throws Exception {
-    printWithBoundary(EXPLORE_MARVEL_STUDIOS);
-    Thread.sleep(2000);
-    printWithBoundary(SUPER_HEROES);
-    printCharacters(RolePlayAppHelper.getMarvelCharactersList());
-    Thread.sleep(2000);
-    printWithBoundary(SUPER_VILLAINS);
-    printCharacters(RolePlayAppHelper.getEvilMarvelCharactersList());
-    Thread.sleep(2000);
-    printWithBoundary(EXPLORE_END_MSG);
-    Thread.sleep(2000);
-    return false;
-  }
-
   private static int getValidUserAction() {
     println(USER_ACTION_MSG);
     for (GameMenu menuOption : GameMenu.values()) {
-      println(menuOption.getActionCode() + " - " + menuOption.getActionText());
+      println(menuOption.getActionCode() + SEPARATOR + menuOption.getActionText());
     }
-    String optionSelectionMessage = "\n" + OPTION_SELECTION_MSG;
+    String optionSelectionMessage = NEWLINE + OPTION_SELECTION_MSG;
     int selectedOption = 0;
     while (true) {
       try {
@@ -107,10 +81,10 @@ public class RolePlayApplication {
             .contains(selectedOption)) {
           return selectedOption;
         }
-        throw new Exception("Invalid Option!");
+        throw new Exception(INVALID_OPTION_MSG);
 
       } catch (Exception e) {
-        optionSelectionMessage = "\n" + VALID_OPTION_SELECTION_MSG;
+        optionSelectionMessage = NEWLINE + VALID_OPTION_SELECTION_MSG;
       }
     }
   }

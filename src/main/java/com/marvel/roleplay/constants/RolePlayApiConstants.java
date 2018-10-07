@@ -36,15 +36,16 @@ public interface RolePlayApiConstants {
   String GAME_SAVE_FAILURE_MSG        = "Sorry! We couldn't save your game :(\n" + REDIRECT_TO_MAIN_MENU;
   String GAME_RESUME_SUCCESS_MSG      = "Hurray! We have resumed your game :)";
   String GAME_RESUME_FAILURE_MSG      = "Sorry! We couldn't resume your game :( \n Starting a new Game . . .";
+  String INVALID_INPUT_LIMIT_MSG      = "Exceeded number of Invalid inputs trials. Triggering the game exit.";
   String PLAYER1                      = "Player 1 (YOU)";
   String PLAYER2                      = "PLAYER 2 (YOUR OPPONENT)";
-  String CHOOSE_PLAYER_MSG            = "Choose a player by entering the Player Id to start the game : ";
+  String CHOOSE_PLAYER_MSG            = "Choose a player by entering the Player Id to start the game :";
   String PLAYER_INPUT_MSG             =
       "Please enter a valid Player Id (otherwise first player will be selected by default) :";
   String DEFAULT_PLAYER_MSG           = "Default Player selected!";
   String EXPLORE_MARVEL_STUDIOS       = "EXPLORE MARVEL STUDIO'S WORLD";
   String SUPER_HEROES                 = "Introducing Marvel Super Heroes . . .";
-  String SUPER_VILLAINS               = "Introducing Marvel Super Villains . . . ";
+  String SUPER_VILLAINS               = "Introducing Marvel Super Villains . . .";
   String EXPLORE_END_MSG              =
       "Now, its time to become a Super Hero and defeat the Villains to Save the world!";
   String USER_DIR_PATH_KEY            = "user.dir";
@@ -61,7 +62,7 @@ public interface RolePlayApiConstants {
   String GAME_STATS_MIDDLE_BORDER   = "     |    ";
   String GAME_STATS_RIGHT_BORDER    = "     |";
 
-  String NEWLINE = "\n";
+  String NEWLINE   = "\n";
   String SEPARATOR = " - ";
 
   Integer DEFAULT_ENERGY_LEVEL = 100;

@@ -5,9 +5,9 @@ import static com.marvel.roleplay.constants.RolePlayApiConstants.CREATE_CHARACTE
 import static com.marvel.roleplay.constants.RolePlayApiConstants.ENERGY_INPUT_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.INVALID_ENTRY_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.INVALID_POWER_MSG;
+import static com.marvel.roleplay.constants.RolePlayApiConstants.NAME_INPUT_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.POWER_INPUT_MSG;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.TRY_AGAIN_MSG;
-import static com.marvel.roleplay.constants.RolePlayApiConstants.NAME_INPUT_MSG;
 import static com.marvel.roleplay.utils.PrintUtils.print;
 import static com.marvel.roleplay.utils.PrintUtils.printWithBoundary;
 import static com.marvel.roleplay.utils.PrintUtils.println;
@@ -24,14 +24,15 @@ import com.marvel.roleplay.services.CharacterService;
 
 public class CharacterServiceImpl implements CharacterService {
 
-  private Scanner scanner = new Scanner(System.in);
+  private static Scanner scanner = new Scanner(System.in);
 
   @Override
   public void createCharacter() {
     try {
       MarvelCharacter newCharacter = new MarvelCharacter();
       print(NAME_INPUT_MSG);
-      newCharacter.setName(scanner.nextLine());
+      String name = scanner.nextLine();
+      newCharacter.setName(name);
       newCharacter.setPower(getValidPower());
       newCharacter.setActionEnergyMap(
           RolePlayAppHelper.createEnergyMap(getValidEnergyDrainedFromFightAction(FightAction.FRONT_KICK),
@@ -51,7 +52,7 @@ public class CharacterServiceImpl implements CharacterService {
     int energyDrained = 0;
     while (true) {
       try {
-        println(ENERGY_INPUT_MSG + fightAction.name() + " : ");
+        println(ENERGY_INPUT_MSG + fightAction.name() + " :");
         energyDrained = Integer.parseInt(scanner.nextLine());
         if (energyDrained >= 1 && energyDrained <= 20)
           break;

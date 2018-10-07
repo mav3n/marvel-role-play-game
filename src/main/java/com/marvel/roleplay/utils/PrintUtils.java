@@ -20,7 +20,7 @@ import static com.marvel.roleplay.constants.RolePlayApiConstants.PLAYER2;
 import static com.marvel.roleplay.constants.RolePlayApiConstants.PLAYER_MOVES;
 
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.marvel.roleplay.domains.MarvelCharacter;
 import com.marvel.roleplay.domains.Player;
@@ -52,8 +52,9 @@ public class PrintUtils {
     println(LONG_BOUNDARY_LINE);
     for (MarvelCharacter character : characterList) {
       String energyMap = "[ ";
-      for (Map.Entry<FightAction, Integer> entry : character.getActionEnergyMap().entrySet()) {
-        energyMap += entry.getKey().name() + " = " + entry.getValue() + ", ";
+      List<FightAction> list = character.getActionEnergyMap().keySet().stream().sorted().collect(Collectors.toList());
+      for (FightAction key : list) {
+        energyMap += key.name() + " = " + character.getActionEnergyMap().get(key) + ", ";
       }
       energyMap = energyMap.substring(0, energyMap.length() - 2) + " ]";
       println(

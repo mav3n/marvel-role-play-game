@@ -14,6 +14,7 @@ public interface RolePlayApiConstants {
   String CREATE_CHARACTER_SUCCESS_MSG = "Hurray! Successfully added the new Character.\n" + REDIRECT_TO_MAIN_MENU;
   String CREATE_CHARACTER_FAILURE_MSG = "Oops! Couldn't add the new Character.\n" + REDIRECT_TO_MAIN_MENU;
   String INVALID_ENTRY_MSG            = "Invalid Entry!";
+  String INVALID_OPTION_MSG           = "Invalid Option!";
   String TRY_AGAIN_MSG                = INVALID_ENTRY_MSG + " Try Again!";
   String INVALID_POWER_MSG            = "Invalid Power Selected.";
   String NAME_INPUT_MSG               = "Enter New Character's Name : ";
@@ -59,6 +60,9 @@ public interface RolePlayApiConstants {
   String GAME_STATS_ENERGY_BORDER   = "|   ENERGY   |   ";
   String GAME_STATS_MIDDLE_BORDER   = "     |    ";
   String GAME_STATS_RIGHT_BORDER    = "     |";
+
+  String NEWLINE = "\n";
+  String SEPARATOR = " - ";
 
   Integer DEFAULT_ENERGY_LEVEL = 100;
 }
